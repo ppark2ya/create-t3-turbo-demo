@@ -9,8 +9,24 @@ const PostCard: React.FC<{
   post: RouterOutputs['post']['all'][number];
   onPostDelete?: () => void;
 }> = ({ post, onPostDelete }) => {
+  const [selectedPost, setSelectedPost] = useState('');
+  const postQueryById = api.post.byId.useQuery(
+    { id: post.id },
+    {
+      enabled: !!selectedPost,
+    },
+  );
+  console.log('post: ', postQueryById.data);
+
+  const onPostClick = (id: string) => {
+    setSelectedPost(id);
+  };
+
   return (
-    <div className="flex flex-row rounded-lg bg-white/10 p-4 transition-all hover:scale-[101%]">
+    <div
+      className="flex flex-row rounded-lg bg-white/10 p-4 transition-all hover:scale-[101%]"
+      onClick={() => onPostClick(post.id)}
+    >
       <div className="flex-grow">
         <h2 className="text-2xl font-bold text-pink-400">{post.title}</h2>
         <p className="mt-2 text-sm">{post.content}</p>

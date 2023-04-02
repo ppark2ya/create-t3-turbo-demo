@@ -34,6 +34,7 @@ export const api = createTRPCNext<AppRouter>({
           },
         },
       },
+      abortOnUnmount: true,
     };
   },
   ssr: false,
